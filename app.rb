@@ -15,10 +15,20 @@ helpers do
     name.include?("@") ? name : "@#{name}"
   end
 
+  def profile_image(image)
+    "<img src='#{image}' alt='#{image}' />"
+  end
+
 end
 
 get '/' do
   @tweets = client.search(query).take(10)
 
   erb :index
+end
+
+get '/print' do
+  @tweets = client.search(query).take(10)
+
+  puts JSON.pretty_generate(@tweets)
 end
